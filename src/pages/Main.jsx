@@ -10,7 +10,9 @@ export default function Main() {
   let [dataTemp, setDataTemp] = useState();
   useEffect(() => {
     async function fetchData() {
-      let temp = await axios.get("http://localhost:5000/api/posts");
+      let temp = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/posts`
+      );
       setDataTemp(temp.data);
       console.log(temp.data);
     }
@@ -26,11 +28,14 @@ export default function Main() {
     setDataTemp((prev) => prev.filter((post) => post._id !== postId)); // optimistic UI
 
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/api/posts/${postId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       toast.success("Post deleted successfully!");
     } catch (err) {

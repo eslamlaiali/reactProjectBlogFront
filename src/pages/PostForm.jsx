@@ -48,7 +48,7 @@ export default function PostForm() {
 
         if (mood === "edit") {
           response = await axios.put(
-            `http://localhost:5000/api/posts/${postData._id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/posts/${postData._id}`,
             payload,
             {
               headers: {
@@ -58,7 +58,7 @@ export default function PostForm() {
           );
         } else {
           response = await axios.post(
-            "http://localhost:5000/api/posts",
+            `${import.meta.env.VITE_API_BASE_URL}/api/posts`,
             payload,
             {
               headers: {
